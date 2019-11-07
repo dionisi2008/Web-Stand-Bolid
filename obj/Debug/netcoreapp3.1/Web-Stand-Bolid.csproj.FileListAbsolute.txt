@@ -1,0 +1,11 @@
+c:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.exe
+C:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.deps.json
+C:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.runtimeconfig.json
+C:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.runtimeconfig.dev.json
+c:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.dll
+c:\Users\Денис\Documents\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.pdb
+c:\Users\Денис\Documents\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.csprojAssemblyReference.cache
+c:\Users\Денис\Documents\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.AssemblyInfoInputs.cache
+c:\Users\Денис\Documents\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.AssemblyInfo.cs
+c:\Users\Денис\Documents\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.dll
+c:\Users\Денис\Documents\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.pdb
