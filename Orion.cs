@@ -1,43 +1,28 @@
 public class Bolid
 {
-    public class EvetsPribors
-    {
-        public enum PowerEvents {АварияИсточникаПитания, НормаИсточникаПитания};
-    }
-    public class PriborsRadialLoops
+    public class PrioborOrion
     {
         public Bolid.PriborСomponents.Power Power;
         public Bolid.PriborСomponents.RS485 RS485;
         public Bolid.PriborСomponents.PPZY PPZY;
-        public Bolid.PriborСomponents.CP CP;
         public Bolid.PriborСomponents.Tamper Tamper;
-        public Bolid.PriborСomponents.Shleif[] Shleif;
         public Bolid.PriborСomponents.Indicator IndicatorWork;
-        public Bolid.PriborСomponents.Indicator IndicatorReley1;
-        public Bolid.PriborСomponents.Indicator IndicatorReley2;
-        public Bolid.PriborСomponents.Indicator IndicatorReley3;
+    }
+    public class EvetsPribors
+    {
+        public enum PowerEvents {АварияИсточникаПитания, НормаИсточникаПитания};
+    }
+    public class PriborsRadialLoops : PrioborOrion
+    {
+        public Bolid.PriborСomponents.Indicator[] IndicatorsReleay;
+        public Bolid.PriborСomponents.Shleif[] Shleif;
         public Bolid.PriborСomponents.Indicator[] IndicatorShleif;
+        public Bolid.PriborСomponents.Key[] KeysShleif;
         }
     public class PriborСomponents
     {
 
-        public class Programms
-        {
-            public class ProgrammReley
-            {
-
-            }
-
-            public class ProgrammIndicators
-            {
-                
-            }
-
-            public class ProgrammSheif
-            {
-                
-            }
-        }
+        
         public class Indicator
         {
 
@@ -62,7 +47,7 @@ public class Bolid
         public class Power
         {
             public delegate void OutStatePower(Bolid.EvetsPribors.PowerEvents State);
-            public event OutStatePower Notify;
+            public event OutStatePower MessageCPPower;
             public double StateVolt = 0;
             public Power(double GetV)
             {
@@ -75,21 +60,19 @@ public class Bolid
             }
 
             public void ConnctPower(double GetV)
-            {
-                
-                Bolid.EvetsPribors.PowerEvents StatePower = Bolid.EvetsPribors.PowerEvents.АварияИсточникаПитания;
+            {                
                 StateVolt = GetV;
                 if (StateVolt < VMinimum)
                 {
-                    //MessagePower("")
+                    MessageCPPower(Bolid.EvetsPribors.PowerEvents.АварияИсточникаПитания);
                 }
                 else if (StateVolt > VMinimum)
                 {
-
+                    MessageCPPower(Bolid.EvetsPribors.PowerEvents.АварияИсточникаПитания);
                 }
                 else
                 {
-
+                    MessageCPPower(Bolid.EvetsPribors.PowerEvents.НормаИсточникаПитания);
                 }
             }
             public double VMinimum;
@@ -109,8 +92,39 @@ public class Bolid
         }
         public class CP
         {
+            public class Programms
+            {
+                public class ProgrammReley
+                {
+
+                }
+
+                public class ProgrammIndicators
+                {
+                    
+                }
+
+                public class ProgrammSheif
+                {
+                    
+                }
+            }
+        }
+        public class Key
+        {
 
         }
     }
-
+    public class Chips
+    {
+        public class Signal20CP : Bolid.PriborСomponents.CP
+        {
+            public delegate void GetEventsPower(Bolid.EvetsPribors.PowerEvents GetEvetsPower);
+            public event GetEventsPower EventPower;
+            public Signal20CP()
+            {
+                
+            }
+        }
+    }
 }
