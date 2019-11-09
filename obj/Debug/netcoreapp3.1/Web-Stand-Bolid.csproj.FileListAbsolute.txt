@@ -14,3 +14,9 @@ c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\obj\Debug\netcor
 c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.AssemblyInfo.cs
 c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.dll
 c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\obj\Debug\netcoreapp3.1\Web-Stand-Bolid.pdb
+c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.exe
+C:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.deps.json
+C:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.runtimeconfig.json
+C:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.runtimeconfig.dev.json
+c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.dll
+c:\Users\Денис\OneDrive\Документы\Web-Stand-Bolid\bin\Debug\netcoreapp3.1\Web-Stand-Bolid.pdb
