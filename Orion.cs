@@ -140,7 +140,7 @@ namespace Bolid
             {
                 public class PPZY
                 {
-
+                    
 
                 }
 
@@ -188,12 +188,10 @@ namespace Bolid
                 public Bolid.Deviecs.ComponentsDevice.Key.Key[] KeysShleif;
             }
         }
-
         public class Priobor
         {
             public Bolid.Deviecs.ComponentsDevice.Power.Power Power;
-            public Bolid.Deviecs.ComponentsDevice.RS485.RS485 RS485;
-            public Bolid.Deviecs.ComponentsDevice.PPZY.PPZY PPZY;
+            public Bolid.Deviecs.ComponentsDevice.RS485.RS485 RS485;            
             public Bolid.Deviecs.ComponentsDevice.Tamper.Tamper Tamper;
             public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator IndicatorWork;
         }
