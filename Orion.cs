@@ -75,9 +75,21 @@ namespace Bolid
             }
             namespace Reley
             {
+                namespace programs
+                {
+                    public class Releyprogram0
+                    {
+
+                    }
+                    public class Releyprogram1
+                    {
+
+                    }
+
+                }
                 public class Reley
                 {
-
+                    public byte ProgramReleay;
                 }
 
             }
@@ -140,7 +152,7 @@ namespace Bolid
             {
                 public class PPZY
                 {
-                    
+
 
                 }
 
@@ -149,19 +161,19 @@ namespace Bolid
             {
                 public class CP
                 {
-                    public class Programms
+                    public class programs
                     {
-                        public class ProgrammReley
+                        public class programReley
                         {
 
                         }
 
-                        public class ProgrammIndicators
+                        public class programIndicators
                         {
 
                         }
 
-                        public class ProgrammSheif
+                        public class programSheif
                         {
 
                         }
@@ -190,10 +202,13 @@ namespace Bolid
         }
         public class Priobor
         {
+            public string NamePribor;
             public Bolid.Deviecs.ComponentsDevice.Power.Power Power;
-            public Bolid.Deviecs.ComponentsDevice.RS485.RS485 RS485;            
+            public Bolid.Deviecs.ComponentsDevice.RS485.RS485 RS485;
             public Bolid.Deviecs.ComponentsDevice.Tamper.Tamper Tamper;
             public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator IndicatorWork;
+            public delegate void GetEventPowerDelegate(Bolid.Deviecs.ComponentsDevice.Power.PowerStates GetEvent);
+            public event GetEventPowerDelegate OutEventPower;
         }
     }
 }
