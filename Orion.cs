@@ -1,5 +1,6 @@
 using System.Timers;
 
+
 namespace Bolid
 {
     namespace Deviecs
@@ -17,7 +18,6 @@ namespace Bolid
                     {
                         this.StateIndicator = GetState;
                         System.Console.WriteLine("Work Indicator Start");
-
                     }
 
                     public Indicator(double GetAllForTime, double GetOnTime, bool StartStete)
@@ -66,10 +66,37 @@ namespace Bolid
             }
             namespace Shleif
             {
+                namespace StateLoop
+                {
+                    public enum StatesLoop { Норма, Нарущение, Обрыв, КороткоеЗамыкание, НарушениеБлокировки };
+                }
                 public class Shleif
                 {
-                    public double KResits;
+                    public Shleif()
+                    {
+
+                    }
+                    public delegate void EventHandlingPribor(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop OutStateLoop);
+                    public event EventHandlingPribor EventOutStateLoop;
+                    public Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop StateLoop;
+                    public void GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop GetState, bool MessagePriborEvent)
+                    {
+                        StateLoop = GetState;
+                        if (MessagePriborEvent)
+                        {
+                            EventOutStateLoop(GetState);
+                        }
+                    }
+                    public byte NambeLoop;
+                    public double NormalResitsMin;
+                    public double NormalResistMax;
+                    public double ViolationResistMin;
+                    public double ViolationResistMax;
+                    public double CableBreakResistMin;
+                    public double ShortCircuitResistMin;
+                    public double Resist;
                     public int ACP;
+
                 }
 
             }
@@ -192,6 +219,49 @@ namespace Bolid
         }
         namespace RadialLoops
         {
+            namespace TypesLoops
+            {
+                namespace Signal20
+                {
+                    public class TypeLoop123 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    {
+                        public byte NambeLoop = 1;
+                        public TypeLoop123(double GetStartResitLoop)
+                        {
+                            this.Resist = GetStartResitLoop;
+                            this.NormalResitsMin = 2.2;
+                            this.NormalResistMax = 5.4;
+                            this.ViolationResistMin = 6.6;
+                            this.ViolationResistMax = 14.4;
+                            this.CableBreakResistMin = 16;
+                            this.ShortCircuitResistMin = 0.100;
+                        }
+
+                        public void GetNewResistLoop(double GetNewResist)
+                        {
+                            this.Resist = GetNewResist;
+                            if (GetNewResist >= NormalResitsMin && GetNewResist <= NormalResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                            }
+                            else if (GetNewResist >= ViolationResistMin && GetNewResist <= ViolationResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                            }
+                            else if (GetNewResist >= CableBreakResistMin)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Обрыв, true);
+                            }
+                            else if (GetNewResist <= ShortCircuitResistMin)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.КороткоеЗамыкание, true);
+                            }
+                        }
+
+
+                    }
+                }
+            }
             public class PriborsRadialLoops : Bolid.Deviecs.Priobor
             {
                 public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator[] IndicatorsReleay;

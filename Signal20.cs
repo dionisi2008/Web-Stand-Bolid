@@ -5,10 +5,11 @@ using Bolid.Deviecs.ComponentsDevice.PPZY;
 public class Signal20 : Bolid.Deviecs.RadialLoops.PriborsRadialLoops
 {
     new string NamePribor = "Сигнал 20 исп. 02";
+    public PPZYSignal20 PPZYSignal;
 
     public Signal20()
     {
-
+        PPZYSignal = new PPZYSignal20(true);
         this.Power = new Bolid.Deviecs.ComponentsDevice.Power.Power();
         this.Power.MessageCPPower += ProgressEventPower;
         Power.VMaximum = 28;
@@ -96,5 +97,14 @@ public class Signal20 : Bolid.Deviecs.RadialLoops.PriborsRadialLoops
             }
             return true;
         }
+    }
+
+    private void LoadPPZY()
+    {
+        for (int shag = 0; shag < 19; shag++)
+        { 
+            this.Shleif[shag] = this.PPZYSignal.TypeShleif[shag];
+        }
+
     }
 }
