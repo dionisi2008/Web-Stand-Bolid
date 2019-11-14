@@ -103,7 +103,7 @@ public class Signal20 : Bolid.Deviecs.RadialLoops.PriborsRadialLoops
     {
         for (int shag = 0; shag < 19; shag++)
         { 
-            this.Shleif[shag] = this.PPZYSignal.TypeShleif[shag];
+            //this.Shleif[shag] = this.PPZYSignal.TypeShleif[shag];
         }
 
     }

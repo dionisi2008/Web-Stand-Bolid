@@ -66,12 +66,17 @@ namespace Bolid
             }
             namespace Shleif
             {
+                namespace TypeLoop
+                {
+                    public enum TypesLoop { Пожарный, Охранный, ОхранныйСКонтролемВскрытияКорпусаИвещателя };
+                }
                 namespace StateLoop
                 {
                     public enum StatesLoop { Норма, Нарущение, Обрыв, КороткоеЗамыкание, НарушениеБлокировки };
                 }
                 public class Shleif
                 {
+                    public Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop TypeLoop;
                     public Shleif()
                     {
 
@@ -87,6 +92,7 @@ namespace Bolid
                             EventOutStateLoop(GetState);
                         }
                     }
+
                     public byte NambeLoop;
                     public double NormalResitsMin;
                     public double NormalResistMax;
@@ -94,6 +100,8 @@ namespace Bolid
                     public double ViolationResistMax;
                     public double CableBreakResistMin;
                     public double ShortCircuitResistMin;
+                    public double blockingViolationMin;
+                    public double blockingViolationMax;
                     public double Resist;
                     public int ACP;
 
@@ -225,9 +233,11 @@ namespace Bolid
                 {
                     public class TypeLoop123 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
                     {
-                        public byte NambeLoop = 1;
+
                         public TypeLoop123(double GetStartResitLoop)
                         {
+                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Пожарный;
+                            this.NambeLoop = 1;
                             this.Resist = GetStartResitLoop;
                             this.NormalResitsMin = 2.2;
                             this.NormalResistMax = 5.4;
@@ -236,15 +246,14 @@ namespace Bolid
                             this.CableBreakResistMin = 16;
                             this.ShortCircuitResistMin = 0.100;
                         }
-
                         public void GetNewResistLoop(double GetNewResist)
                         {
                             this.Resist = GetNewResist;
-                            if (GetNewResist >= NormalResitsMin && GetNewResist <= NormalResistMax)
+                            if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
                             {
                                 GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
                             }
-                            else if (GetNewResist >= ViolationResistMin && GetNewResist <= ViolationResistMax)
+                            else if (GetNewResist >= ViolationResistMin || GetNewResist <= ViolationResistMax)
                             {
                                 GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
                             }
@@ -260,6 +269,70 @@ namespace Bolid
 
 
                     }
+                    public class TypeLoop4 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    {
+                        public TypeLoop4(double GetStartResitLoop)
+                        {
+                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Охранный;
+                            this.NambeLoop = 4;
+                            this.Resist = GetStartResitLoop;
+                            this.NormalResitsMin = 2.2;
+                            this.NormalResistMax = 9.9;
+                            this.ViolationResistMin = 12.1;
+                            this.ViolationResistMax = 1.8;
+                        }
+                        public void GetNewResistLoop(double GetNewResist)
+                        {
+                            this.Resist = GetNewResist;
+                            if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                            }
+                            else if (GetNewResist >= ViolationResistMin || GetNewResist <= ViolationResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                            }
+                        }
+
+                    }
+                    public class TypeLoop5 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    {
+                        public TypeLoop5(double GetStartResitLoop)
+                        {
+                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Охранный;
+                            this.NambeLoop = 5;
+                            this.Resist = GetStartResitLoop;
+                            this.NormalResitsMin = 2.5;
+                            this.NormalResistMax = 5.4;
+                            this.ViolationResistMin = 1.8;
+                            this.ViolationResistMax = 6.6;
+                            this.ShortCircuitResistMin = 1.8;
+                            blockingViolationMin = 6.6;
+                            blockingViolationMax = 9.0;
+                        }
+                        public void GetNewResistLoop(double GetNewResist)
+                        {
+                            this.Resist = GetNewResist;
+                            if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                            }
+                            else if (GetNewResist <= ViolationResistMin || GetNewResist >= ViolationResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                            }
+                            else if (GetNewResist <= ShortCircuitResistMin)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.КороткоеЗамыкание, true);
+                            }
+                            else if (GetNewResist >= blockingViolationMin || GetNewResist <= ViolationResistMax)
+                            {
+                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.НарушениеБлокировки, true);
+                            }
+                        }
+
+                    }
+
                 }
             }
             public class PriborsRadialLoops : Bolid.Deviecs.Priobor
