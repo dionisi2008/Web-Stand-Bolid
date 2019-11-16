@@ -3,68 +3,11 @@ using System.Timers;
 
 namespace Bolid
 {
-    namespace Deviecs
+    namespace Devices
     {
         namespace ComponentsDevice
         {
-            namespace Indicator
-            {
-                public class Indicator
-                {
-                    public Timer AllForTime;
-                    public Timer OnTime;
-                    public bool StateIndicator = false;
-                    public Indicator(bool GetState)
-                    {
-                        this.StateIndicator = GetState;
-                        System.Console.WriteLine("Work Indicator Start");
-                    }
-
-                    public Indicator(double GetAllForTime, double GetOnTime, bool StartStete)
-                    {
-                        AllForTime = new Timer(GetAllForTime);
-                        OnTime = new Timer(GetOnTime);
-                        AllForTime.Elapsed += FunctionAllTimerPick;
-                        OnTime.Elapsed += FunctionOnTimerPick;
-                        this.StateIndicator = StartStete;
-                        AllForTime.Start();
-                    }
-
-                    public void FunctionAllTimerPick(object sender, ElapsedEventArgs e)
-                    {
-                        System.Console.ForegroundColor = System.ConsoleColor.Green;
-                        System.Console.WriteLine("Work Indicator Start");
-                        OnTime.Start();
-                    }
-
-                    public void FunctionOnTimerPick(object sender, ElapsedEventArgs e)
-                    {
-                        System.Console.ForegroundColor = System.ConsoleColor.Black;
-                        System.Console.WriteLine("Work Indicator Stop");
-                        this.StateIndicator = true;
-                        this.OnTime.Stop();
-                    }
-
-                }
-
-            }
-            namespace RS485
-            {
-                public class RS485
-                {
-
-                }
-
-            }
-            namespace RS232
-            {
-                public class RS232
-                {
-
-                }
-
-            }
-            namespace Shleif
+            namespace Loop
             {
                 namespace TypeLoop
                 {
@@ -74,17 +17,17 @@ namespace Bolid
                 {
                     public enum StatesLoop { Норма, Нарущение, Обрыв, КороткоеЗамыкание, НарушениеБлокировки };
                 }
-                public class Shleif
+                public class Loop
                 {
-                    public Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop TypeLoop;
-                    public Shleif()
+                    public Bolid.Devices.ComponentsDevice.Loop.TypeLoop.TypesLoop TypeLoop;
+                    public Loop()
                     {
 
                     }
-                    public delegate void EventHandlingPribor(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop OutStateLoop);
+                    public delegate void EventHandlingPribor(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop OutStateLoop);
                     public event EventHandlingPribor EventOutStateLoop;
-                    public Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop StateLoop;
-                    public void GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop GetState, bool MessagePriborEvent)
+                    public Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop StateLoop;
+                    public void GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop GetState, bool MessagePriborEvent)
                     {
                         StateLoop = GetState;
                         if (MessagePriborEvent)
@@ -133,37 +76,40 @@ namespace Bolid
                 public enum PowerStates { АварияИсточникаПитания, НормаИсточникаПитания };
                 public class Power
                 {
-                    public delegate void OutStatePower(Bolid.Deviecs.ComponentsDevice.Power.PowerStates State);
-                    public event OutStatePower MessageCPPower;
+                    public double VMinimum = 10.2;
+                    public const double VMaximum = 28;
                     public double StateVolt = 0;
+                    public delegate void OutStatePower(Bolid.Devices.ComponentsDevice.Power.PowerStates State);
+                    public event OutStatePower MessageCPPower;
+                    public Power()
+                    {
+
+                    }
+
                     public Power(double GetV)
                     {
                         StateVolt = GetV;
                     }
 
-                    public Power()
-                    {
 
-                    }
 
                     public void ConnctPower(double GetV)
                     {
                         StateVolt = GetV;
                         if (StateVolt < VMinimum)
                         {
-                            MessageCPPower(Bolid.Deviecs.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
+                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
                         }
                         else if (StateVolt > VMinimum)
                         {
-                            MessageCPPower(Bolid.Deviecs.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
+                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
                         }
                         else
                         {
-                            MessageCPPower(Bolid.Deviecs.ComponentsDevice.Power.PowerStates.НормаИсточникаПитания);
+                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.НормаИсточникаПитания);
                         }
                     }
-                    public double VMinimum;
-                    public double VMaximum;
+
                 }
 
             }
@@ -196,25 +142,23 @@ namespace Bolid
             {
                 public class CP
                 {
-                    public class programs
+                    public CP()
                     {
-                        public class programReley
-                        {
 
-                        }
+                    }
+                    public void EventGetPower(Bolid.Devices.ComponentsDevice.Power.PowerStates GetStatePower)
+                    {
+                        System.Console.WriteLine("s");
+                    }
 
-                        public class programIndicators
-                        {
+                }
+                namespace RadialLoopsCP
+                {
+                    public class Signal20CP
+                    {
 
-                        }
-
-                        public class programSheif
-                        {
-
-                        }
                     }
                 }
-
             }
             namespace Key
             {
@@ -231,12 +175,12 @@ namespace Bolid
             {
                 namespace Signal20
                 {
-                    public class TypeLoop123 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    public class TypeLoop123 : Bolid.Devices.ComponentsDevice.Loop.Loop
                     {
 
                         public TypeLoop123(double GetStartResitLoop)
                         {
-                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Пожарный;
+                            this.TypeLoop = Bolid.Devices.ComponentsDevice.Loop.TypeLoop.TypesLoop.Пожарный;
                             this.NambeLoop = 1;
                             this.Resist = GetStartResitLoop;
                             this.NormalResitsMin = 2.2;
@@ -251,29 +195,29 @@ namespace Bolid
                             this.Resist = GetNewResist;
                             if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Норма, false);
                             }
                             else if (GetNewResist >= ViolationResistMin || GetNewResist <= ViolationResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Нарущение, true);
                             }
                             else if (GetNewResist >= CableBreakResistMin)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Обрыв, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Обрыв, true);
                             }
                             else if (GetNewResist <= ShortCircuitResistMin)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.КороткоеЗамыкание, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.КороткоеЗамыкание, true);
                             }
                         }
 
 
                     }
-                    public class TypeLoop4 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    public class TypeLoop4 : Bolid.Devices.ComponentsDevice.Loop.Loop
                     {
                         public TypeLoop4(double GetStartResitLoop)
                         {
-                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Охранный;
+                            this.TypeLoop = Bolid.Devices.ComponentsDevice.Loop.TypeLoop.TypesLoop.Охранный;
                             this.NambeLoop = 4;
                             this.Resist = GetStartResitLoop;
                             this.NormalResitsMin = 2.2;
@@ -286,20 +230,20 @@ namespace Bolid
                             this.Resist = GetNewResist;
                             if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Норма, false);
                             }
                             else if (GetNewResist >= ViolationResistMin || GetNewResist <= ViolationResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Нарущение, true);
                             }
                         }
 
                     }
-                    public class TypeLoop5 : Bolid.Deviecs.ComponentsDevice.Shleif.Shleif
+                    public class TypeLoop5 : Bolid.Devices.ComponentsDevice.Loop.Loop
                     {
                         public TypeLoop5(double GetStartResitLoop)
                         {
-                            this.TypeLoop = Bolid.Deviecs.ComponentsDevice.Shleif.TypeLoop.TypesLoop.Охранный;
+                            this.TypeLoop = Bolid.Devices.ComponentsDevice.Loop.TypeLoop.TypesLoop.Охранный;
                             this.NambeLoop = 5;
                             this.Resist = GetStartResitLoop;
                             this.NormalResitsMin = 2.5;
@@ -315,19 +259,19 @@ namespace Bolid
                             this.Resist = GetNewResist;
                             if (GetNewResist >= NormalResitsMin || GetNewResist <= NormalResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Норма, false);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Норма, false);
                             }
                             else if (GetNewResist <= ViolationResistMin || GetNewResist >= ViolationResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.Нарущение, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.Нарущение, true);
                             }
                             else if (GetNewResist <= ShortCircuitResistMin)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.КороткоеЗамыкание, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.КороткоеЗамыкание, true);
                             }
                             else if (GetNewResist >= blockingViolationMin || GetNewResist <= ViolationResistMax)
                             {
-                                GetNewStateLoop(Bolid.Deviecs.ComponentsDevice.Shleif.StateLoop.StatesLoop.НарушениеБлокировки, true);
+                                GetNewStateLoop(Bolid.Devices.ComponentsDevice.Loop.StateLoop.StatesLoop.НарушениеБлокировки, true);
                             }
                         }
 
@@ -335,23 +279,13 @@ namespace Bolid
 
                 }
             }
-            public class PriborsRadialLoops : Bolid.Deviecs.Priobor
+            public class PriborsRadialLoops : Bolid.Devices.Pribor
             {
-                public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator[] IndicatorsReleay;
-                public Bolid.Deviecs.ComponentsDevice.Shleif.Shleif[] Shleif;
-                public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator[] IndicatorShleif;
-                public Bolid.Deviecs.ComponentsDevice.Key.Key[] KeysShleif;
+                public Bolid.Devices.ComponentsDevice.Indicator.Indicator[] IndicatorsReleay;
+                public Bolid.Devices.ComponentsDevice.Loop.Loop[] Loop;
+                public Bolid.Devices.ComponentsDevice.Indicator.Indicator[] IndicatorLoop;
+                public Bolid.Devices.ComponentsDevice.Key.Key[] KeysLoop;
             }
-        }
-        public class Priobor
-        {
-            public string NamePribor;
-            public Bolid.Deviecs.ComponentsDevice.Power.Power Power;
-            public Bolid.Deviecs.ComponentsDevice.RS485.RS485 RS485;
-            public Bolid.Deviecs.ComponentsDevice.Tamper.Tamper Tamper;
-            public Bolid.Deviecs.ComponentsDevice.Indicator.Indicator IndicatorWork;
-            public delegate void GetEventPowerDelegate(Bolid.Deviecs.ComponentsDevice.Power.PowerStates GetEvent);
-            public event GetEventPowerDelegate OutEventPower;
         }
     }
 }
