@@ -10,6 +10,9 @@ namespace Web_Stand_Bolid
             Signal20 signal20 = new Signal20();
             signal20.Power.ConnctPower(9);
             Console.ReadLine();
+            
         }
+ 
+        
     }
 }

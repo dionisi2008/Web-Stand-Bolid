@@ -4,17 +4,21 @@ namespace Bolid
     {
         public class Pribor
         {
-            public string NamePribor;
-            public Bolid.Devices.ComponentsDevice.CP.CP CpSignal20;
-            public Bolid.Devices.ComponentsDevice.Power.Power Power;
+            public Bolid.Devices.ComponentsDevice.CP.CP CP;
+            public Bolid.Devices.ComponentsDevice.Power.Power Power = new ComponentsDevice.Power.Power(0);
             public Bolid.Devices.ComponentsDevice.RS485.RS485 RS485;
             public Bolid.Devices.ComponentsDevice.Tamper.Tamper Tamper;
-            public Bolid.Devices.ComponentsDevice.Indicator.Indicator IndicatorWork;
+            public Bolid.Devices.ComponentsDevice.Indicator.Indicator IndicatorWork = new ComponentsDevice.Indicator.Indicator(false, "Work");
             public Pribor()
             {
-                CpSignal20 = new ComponentsDevice.CP.CP();
-                this.Power = new ComponentsDevice.Power.Power();
-                Power.MessageCPPower += CpSignal20.EventGetPower;
+                CP = new ComponentsDevice.CP.CP();                
+                CP.GetPriborBoard(this);
+                this.Power.MessageCPPower += CP.EventGetPower;
+                //this.CP.EventOutIndicator += this.IndicatorWork.GetEventCPcommand;
+            }
+            public void ProgressEventPower(Bolid.Devices.ComponentsDevice.Power.PowerStates GetEvent)
+            {
+                
             }
         }
     }

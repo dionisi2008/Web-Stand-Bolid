@@ -9,22 +9,23 @@ namespace Bolid
             {
                 public class Indicator
                 {
+                    public string NameIndicator;
                     public Timer AllForTime;
                     public Timer OnTime;
                     public bool StateIndicator = false;
-                    public Indicator(bool GetState)
+                    public Indicator(bool GetState, string GetNameIndicator)
                     {
+                        this.NameIndicator = GetNameIndicator;
                         this.StateIndicator = GetState;
                         System.Console.WriteLine("Work Indicator Start");
                     }
 
-                    public Indicator(double GetAllForTime, double GetOnTime, bool StartStete)
+                    public Indicator(double GetAllForTime, double GetOnTime, bool GetStartStete)
                     {
                         AllForTime = new Timer(GetAllForTime);
                         OnTime = new Timer(GetOnTime);
                         AllForTime.Elapsed += FunctionAllTimerPick;
                         OnTime.Elapsed += FunctionOnTimerPick;
-                        this.StateIndicator = StartStete;
                         AllForTime.Start();
                     }
 
