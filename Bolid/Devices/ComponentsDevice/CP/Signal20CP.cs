@@ -8,11 +8,13 @@ namespace Bolid
             {
                 public class CPSignal20 : Bolid.Devices.ComponentsDevice.CP.CPRadial
                 {
-                
+                    
                     public CPSignal20()
                     {
-
+                        
                     }
+
+                    
 
                 }
             }

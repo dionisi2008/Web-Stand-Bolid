@@ -9,37 +9,24 @@ namespace Bolid
                 public enum PowerStates { АварияИсточникаПитания, НормаИсточникаПитания };
                 public class Power
                 {
+                    public CP.CP OutEventCP;
                     public double VMinimum = 10.2;
                     public const double VMaximum = 28;
                     public double StateVolt = 0;
-                    public delegate void OutStatePower(Bolid.Devices.ComponentsDevice.Power.PowerStates State);
-                    public event OutStatePower MessageCPPower;
-                    public Power()
+                    public Power(CP.CP GetCPPribor)
                     {
-
+                        OutEventCP = GetCPPribor;
                     }
-
-                    public Power(double GetV)
-                    {
-                        StateVolt = GetV;
-                    }
-
-
-
                     public void ConnctPower(double GetV)
                     {
                         StateVolt = GetV;
-                        if (StateVolt < VMinimum)
-                        {                            
-                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
-                        }
-                        else if (StateVolt > VMinimum)
+                        if (StateVolt < VMinimum || StateVolt > VMaximum)
                         {
-                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
+                            OutEventCP.EventGetPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.АварияИсточникаПитания);
                         }
                         else
                         {
-                            MessageCPPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.НормаИсточникаПитания);
+                            OutEventCP.EventGetPower(Bolid.Devices.ComponentsDevice.Power.PowerStates.НормаИсточникаПитания);
                         }
                     }
 

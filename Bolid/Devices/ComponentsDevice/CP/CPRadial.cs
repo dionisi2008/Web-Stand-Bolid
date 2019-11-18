@@ -8,16 +8,18 @@ namespace Bolid
             {
                 public class CPRadial : Bolid.Devices.ComponentsDevice.CP.CP
                 {
-                    
+
                     public CPRadial()
                     {
-                        
+
                     }
 
                     public void LoopStatusRequest(int LoopNambe)
                     {
 
                     }
+
+                    
                 }
             }
         }
