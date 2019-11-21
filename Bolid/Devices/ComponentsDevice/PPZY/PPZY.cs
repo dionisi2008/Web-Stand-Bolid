@@ -9,6 +9,7 @@ namespace Bolid
             {
                 public class PPZY
                 {
+                    public int AdressRS485 = 0;
                     public static System.Random RandomInfo = new Random(DateTime.Now.Millisecond);
                     public byte GetRandomByte(int GetMin, int GetMax)
                     {
@@ -22,8 +23,6 @@ namespace Bolid
                         }
                         return true;
                     }
-
-
                 }
 
             }
